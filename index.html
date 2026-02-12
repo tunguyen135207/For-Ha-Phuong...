@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>To My Special Someone</title>
-    <!-- Google Fonts: Dancing Script & Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
@@ -32,7 +31,7 @@
             perspective: 1500px;
         }
 
-        /* Falling Petals Background (Constant) */
+        /* Falling Petals Background */
         .petals-container {
             position: fixed;
             top: 0;
@@ -204,23 +203,15 @@
             line-height: 1.5;
         }
 
-        .card::-webkit-scrollbar { 
-            width: 6px; 
-        }
-        .card::-webkit-scrollbar-track {
-            background: transparent;
-        }
+        .card::-webkit-scrollbar { width: 6px; }
+        .card::-webkit-scrollbar-track { background: transparent; }
         .card::-webkit-scrollbar-thumb { 
             background: rgba(233, 30, 99, 0.2); 
             border-radius: 10px; 
         }
 
         @media (max-width: 600px) {
-            .card { 
-                padding: 2rem 1.2rem; 
-                width: 95%;
-                max-height: 80vh;
-            }
+            .card { padding: 2rem 1.2rem; width: 95%; max-height: 80vh; }
             h1 { font-size: 2.2rem; }
             p { font-size: 1.05rem; }
             .heart-svg { width: 130px; height: 130px; }
@@ -251,6 +242,10 @@
         </defs>
     </svg>
 
+    <audio id="myAudio" loop>
+        <source src="golden-hour.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="petals-container" id="petals"></div>
     <div id="heart-flow-container"></div>
 
@@ -273,7 +268,7 @@
         </div>
         
         <h1>Hellooooo Ha Phuong!</h1>
-        <p>Today is Saturday, February 14th, Valentine’s Day, and I built this little corner of the web just for you. 
+        <p>Today is Saturday, February 14th, Valentine’s Day, and I built this little corner of the web just for you.</p> 
         <p>I’ll be honest,... from the moment we met, I was captivated by everything about you—your eyes, your smile, and that personality that keeps me on my toes. Especially when you were wearing that fox hat, it was soooooo cute. I still remember how delighted I was after that "werewolf night" when you messaged me first. Since then, our late-night talks have become my favorite place to be. You have a way of calming my mind while warming my heart at the same time.</p>
         <p>I’m so happy that I finally have the chance to talk to you, but lately, that happiness has been mixed with a bit of worry. We’re entering a three-week break, and honestly, I’m afraid that this distance might bring a sense of disconnection. It’s tough because we haven’t even had the chance for a proper date or hangout yet, and I hate that the timing of the holiday is keeping us apart just as we’ve started to find each other. I had already planned so many places to go and things to do with you, but for now, all I can do is this to bridge the gap.</p>
         <p>There are moments during our conversations when I completely lose track of time, and I realize how rare it is to find someone who makes "getting to know you" feel so effortless. You are so caring, and the way you appreciate me means more than I can put into words. I want you to know how much I value our connection, and that I’m here, wanting to be the person by your side through everything.</p>
@@ -285,6 +280,7 @@
     </div>
 
     <script>
+        // Cánh hoa rơi
         function createPetals() {
             const container = document.getElementById('petals');
             for (let i = 0; i < 35; i++) {
@@ -301,6 +297,7 @@
             }
         }
 
+        // Tạo tim bay
         function createSingleHeart() {
             const container = document.getElementById('heart-flow-container');
             const colors = ['#ff3838', '#e91e63', '#ff8a80', '#d63384', '#ffafbd'];
@@ -328,22 +325,27 @@
             heart.style.setProperty('--rotation', `${rotation}deg`);
             
             container.appendChild(heart);
-
             setTimeout(() => heart.remove(), duration * 1000);
         }
 
         function startHeartFlow() {
-            // Initial burst
             for(let i=0; i<20; i++) {
                 setTimeout(createSingleHeart, i * 100);
             }
-            // Continuous flow forever
             setInterval(createSingleHeart, 400);
         }
 
+        // Hàm mở thư và phát nhạc
         function openLetter() {
             const intro = document.getElementById('intro-screen');
             const card = document.getElementById('letter-card');
+            const audio = document.getElementById("myAudio");
+
+            // Phát nhạc & Loop
+            if (audio) {
+                audio.play().catch(e => console.log("Audio blocked by browser", e));
+            }
+
             intro.classList.add('fade-out');
             startHeartFlow();
             setTimeout(() => {
